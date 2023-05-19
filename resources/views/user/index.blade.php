@@ -10,9 +10,7 @@
     <div class="py-12">
         <div class="max-w-7x1 mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-
-            <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
-
+                <div class="p-6 text-xl text-gray-900 dark:text-gray-100">
                 <div class="px-6 pt-6 mb-5 md:w-1/2 2xl:w-1/3">
 
                     @if (request('search'))
@@ -112,6 +110,31 @@
                                         <div class="flex space-x-3">
 
                                             {{-- Action here --}}
+                                            @if ($user->is_admin)
+                                            <form action="{{ route('user.removeadmin', $user) }}" method="post">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit"
+                                                    class="text-blue-600 dark:text-blue-400 whitespace-nowrap">
+                                                    Remove Admin</button>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('user.makeadmin', $user) }}" method="post">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit"
+                                                    class="text-red-600 dark:text-red-400 whitespace-nowrap">
+                                                    Make Admin</button>
+                                            </form>
+                                        @endif
+                                        <form action="{{ route('user.destroy', $user) }}" method="Post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit"
+                                                class="text-red-600 dark:text-red-400 whitespace-nowrap">
+                                                Delete
+                                            </button>
+                                        </form>
 
                                         </div>
                                     </td>
